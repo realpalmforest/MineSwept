@@ -1,4 +1,5 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
@@ -6,6 +7,30 @@ namespace MineSwept
 {
     public class Game1 : Game
     {
+        public static Game1 Instance { get; private set; }
+
+        public Random Random { get; } = new Random();
+        public int WindowWidth
+        {
+            get => graphics.PreferredBackBufferWidth;
+            set
+            {
+                graphics.PreferredBackBufferWidth = value;
+                graphics.ApplyChanges();
+            }
+        }
+        public int WindowHeight
+        {
+            get => graphics.PreferredBackBufferHeight;
+            set
+            {
+                graphics.PreferredBackBufferHeight = value;
+                graphics.ApplyChanges();
+            }
+        }
+
+        public Texture2D WhiteTexture { get; private set; }
+
         private GameMap map;
 
         private GraphicsDeviceManager graphics;
@@ -16,11 +41,16 @@ namespace MineSwept
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+
+            Instance = this;
         }
 
         protected override void Initialize()
         {
-            map = new GameMap(10, 10, new Vector2(40, 40), 8);
+            map = new GameMap(10, 10, new Vector2(40, 40), 35);
+            map.PlaceMines(10);
+
+            DevTools.CurrentMap = map;
 
             base.Initialize();
         }
@@ -28,6 +58,9 @@ namespace MineSwept
         protected override void LoadContent()
         {
             spriteBatch = new SpriteBatch(GraphicsDevice);
+
+            WhiteTexture = new Texture2D(GraphicsDevice, 1, 1);
+            WhiteTexture.SetData([ Color.White ]);
 
             map.LoadContent(Content);
         }
@@ -37,14 +70,23 @@ namespace MineSwept
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
+            InputManager.Update();
+            DevTools.UpdateInputs();
+
+            map.Update();
         }
 
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            // TODO: Add your drawing code here
+            spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.NonPremultiplied);
+
+            map.Draw(spriteBatch);
+
+            DevTools.DrawDebug(spriteBatch);
+
+            spriteBatch.End();
         }
     }
 }
