@@ -2,6 +2,8 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MineSwept.Core;
+using MineSwept.Utility;
 
 namespace MineSwept
 {

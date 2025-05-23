@@ -1,9 +1,10 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using MineSwept.Core;
 using System.Diagnostics;
 
-namespace MineSwept;
+namespace MineSwept.Utility;
 
 public static class DevTools
 {

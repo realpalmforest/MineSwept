@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using MineSwept.Utility;
 
-namespace MineSwept;
+namespace MineSwept.Core;
 
 public class GameMap
 {
