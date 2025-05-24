@@ -12,6 +12,8 @@ public struct Tile
     public bool Flagged { get; set; } = false;
     public bool Mine { get; set; } = false;
 
+    public int AdjacentMines { get; set; } = 0;
+
     public Tile()
     {
 

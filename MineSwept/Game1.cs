@@ -49,8 +49,8 @@ namespace MineSwept
 
         protected override void Initialize()
         {
-            map = new GameMap(10, 10, new Vector2(40, 40), 35);
-            map.PlaceMines(10);
+            map = new GameMap(12, 12, new Vector2(40, 40), 35);
+            map.PlaceMines(15);
 
             DevTools.CurrentMap = map;
 
@@ -82,7 +82,7 @@ namespace MineSwept
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            spriteBatch.Begin(samplerState: SamplerState.PointClamp, blendState: BlendState.NonPremultiplied);
+            spriteBatch.Begin(blendState: BlendState.NonPremultiplied);
 
             map.Draw(spriteBatch);
 

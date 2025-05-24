@@ -25,3 +25,10 @@
 /processorParam:TextureFormat=Color
 /build:tiles.png
 
+#begin UI/Fonts/numFont.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:UI/Fonts/numFont.spritefont
+
